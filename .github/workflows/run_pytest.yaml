@@ -21,3 +21,10 @@ jobs:
     - name: Run Pytest and generate Cobertura coverage report
       run: pytest --cov --cov-report xml:coverage.xml
       working-directory: ${{ github.workspace }}
+    - name: Configure and Run SonarQube Scanner
+      run: |
+        sonar-scanner -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }} -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+      working-directory: ${{ github.workspace }}
+    - name: Import Coverage Report to SonarQube
+      run: sonar-scanner -Dsonar.cobertura.reportPaths=coverage.xml
+      working-directory: ${{ github.workspace }}
