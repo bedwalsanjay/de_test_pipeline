@@ -28,7 +28,8 @@ jobs:
         SONAR_HOST_URL: ${{ secrets.SONARQUBE_HOST }}
         sonar.projectKey: de_test_pipeline
       with:
-        projectBaseDir: src
+        # projectBaseDir: src
         args: >
+          -Dsonar.sources=src
           -Dsonar.python.coverage.reportPaths=coverage.xml
           -Dsonar.projectKey=de_test_pipeline
