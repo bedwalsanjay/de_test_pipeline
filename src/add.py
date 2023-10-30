@@ -9,3 +9,6 @@ def mul (a, b):
 
 def dev (a, b):
     return (a / b)
+
+def mod (a, b):
+    return (a % b)
