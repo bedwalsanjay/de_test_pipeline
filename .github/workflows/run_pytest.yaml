@@ -10,4 +10,8 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8  # You can specify your desired Python version
+        python-version: 3.8 
+    - name: Install dependencies
+      run: |
+        pip install pytest pytest-junit pytest-cov
+      working-directory: ${{ github.workspace }}
