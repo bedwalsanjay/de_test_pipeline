@@ -19,5 +19,5 @@ jobs:
         pip install pytest pytest-cov pytest-xdist
       working-directory: ${{ github.workspace }}
     - name: Run Pytest and generate Cobertura coverage report
-      run: pytest --cov=my_module --cov-report xml:coverage.xml
+      run: pytest --cov --cov-report xml:coverage.xml
       working-directory: ${{ github.workspace }}
