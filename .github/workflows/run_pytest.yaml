@@ -27,4 +27,4 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONARQUBE_HOST }}
       with:
-        arguments: -Dsonar.python.coverage.reportPaths=coverage.xml
+        arguments: -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.projectKey=de_test_pipeline
