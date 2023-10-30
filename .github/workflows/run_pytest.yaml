@@ -1,0 +1,13 @@
+name: Data Pipeline
+on: workflow_dispatch
+jobs:
+  first-job:
+    name : run test cases
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8  # You can specify your desired Python version
