@@ -26,7 +26,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONARQUBE_HOST }}
-        sonar.projectKey: de_test_pipeline
+        #sonar.projectKey: de_test_pipeline
       with:
         # projectBaseDir: src
         args: >
