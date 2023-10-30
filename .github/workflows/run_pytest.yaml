@@ -1,5 +1,8 @@
 name: Data Pipeline
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
 jobs:
   first-job:
     name : run test cases
@@ -13,7 +16,7 @@ jobs:
         python-version: 3.8 
     - name: Install dependencies
       run: |
-        pip install pytest pytest-cov
+        pip install pytest pytest-cov pytest-xdist
       working-directory: ${{ github.workspace }}
     - name: Run Pytest and generate reports
       run: pytest --cov
