@@ -3,6 +3,12 @@ import sys
 def add (a, b):
     return (a + b)
 
+def add1 (a, b):
+    return (a + b)
+
+def add2 (a, b):
+    return (a + b)
+
 def sub (a, b):
     return (a - b)
 
@@ -34,4 +40,12 @@ def calculate_factorial(number):
         return result
 
 
+def calculate_factorial1(number):
+    if number == 0:
+        return 1
+    else:
+        result = 1
+        for i in range(1, number + 1):
+            result *= i
+        return result
 
