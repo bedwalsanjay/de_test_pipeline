@@ -70,7 +70,7 @@ jobs:
         with:
           name: Pytest Test Results
           path: pytest-report.xml  # Adjust the path to your pytest test report
-          reporter: jest-junit
+          reporter: junit
 
       - name: Code Coverage Report
         uses: codecov/codecov-action@v2
