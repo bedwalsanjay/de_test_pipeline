@@ -63,16 +63,19 @@ jobs:
       - name: Run Pytest
         run: pytest --cov --cov-report xml:pytest-report.xml
         working-directory: ${{ github.workspace }}
-
+      
       - name: Run Pytest Coverage Commentator
         uses: actions/github-script@v5
         with:
           script: |
             github.issues.createComment({
-            issue_number: context.issue.number,
-            body: await core.group('Run Pytest Coverage Commentator', async () => {
-            // Run pytest-coverage
-            await core.exec('pytest --cov')
+              issue_number: context.issue.number,
+              body: await core.group('Run Pytest Coverage Commentator', async () => {
+                // Run  pytest-coverage
+                await core.exec('pytest --cov');
+              })
+            });
+
 
       # - name: Test Report
       #   uses: dorny/test-reporter@v1
