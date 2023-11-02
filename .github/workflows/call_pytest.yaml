@@ -70,23 +70,16 @@ jobs:
           click-to-expand: true
           report-title: 'Test Report'
 
+      - name: Code Coverage Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: coverage/cobertura-coverage.xml
+          badge: ${{ inputs.coverage-badge }}
+          fail_below_min: true
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
 
-      # - name: Test Report
-      #   uses: dorny/test-reporter@v1
-      #   if: inputs.test-report
-      #   with:
-      #     name: Pytest Test Results
-      #     path: pytest-report.xml  # Adjust the path to your pytest test report
-      #     reporter: LCOV
-
-      # - name: Code Coverage Report
-      #   uses: codecov/codecov-action@v2
-      #   if: inputs.coverage-report
-      #   with:
-      #     flags: unit
-      #     fail_ci_if_error: true
-
-      # - name: Cache Coverage
-      #   if: inputs.coverage-report
-      #   run: cp -r .coverage ~/.
 
