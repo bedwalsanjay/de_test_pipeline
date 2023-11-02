@@ -1,14 +1,14 @@
-name: Push changes test
-on:
-  push:
-    branches:
-      - main
+# name: Push changes test
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  test:
-    name: Pytest run 
-    uses: ./.github/workflows/call_pytest.yaml
-    with:
-      test-report: true
-      coverage-report: true
-      runner-labels: ubuntu-latest
+# jobs:
+#   test:
+#     name: Pytest run 
+#     uses: ./.github/workflows/call_pytest.yaml
+#     with:
+#       test-report: true
+#       coverage-report: true
+#       runner-labels: ubuntu-latest

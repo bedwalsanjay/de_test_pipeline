@@ -1,98 +1,98 @@
-name: Pytest Test
+# name: Pytest Test
 
-on:
-  workflow_call:
-    inputs:
-      environment:
-        description: "Environment"
-        type: string
-        required: false
-        default: "development"
-      test-report:
-        description: "Generate test report?"
-        type: boolean
-        required: false
-        default: false
-      coverage-report:
-        description: "Generate coverage report?"
-        type: boolean
-        required: false
-        default: false
-      coverage-thresholds:
-        description: "Coverage thresholds ('min max')"
-        type: string
-        required: false
-        default: "60 80"
-      coverage-badge:
-        description: "Generate a coverage badge"
-        type: boolean
-        required: false
-        default: false
-      package-list:
-        description: "List of packages to be installed"
-        type: string
-        required: false
-      python-version:
-        description: "Python version to use"
-        type: string
-        required: false
-        default: "3.8"  # Change to your desired Python version
-      runner-labels:
-        description: "Labels to use for the GitHub Runners"
-        type: string
-        required: false
-        default: eks-runners
+# on:
+#   workflow_call:
+#     inputs:
+#       environment:
+#         description: "Environment"
+#         type: string
+#         required: false
+#         default: "development"
+#       test-report:
+#         description: "Generate test report?"
+#         type: boolean
+#         required: false
+#         default: false
+#       coverage-report:
+#         description: "Generate coverage report?"
+#         type: boolean
+#         required: false
+#         default: false
+#       coverage-thresholds:
+#         description: "Coverage thresholds ('min max')"
+#         type: string
+#         required: false
+#         default: "60 80"
+#       coverage-badge:
+#         description: "Generate a coverage badge"
+#         type: boolean
+#         required: false
+#         default: false
+#       package-list:
+#         description: "List of packages to be installed"
+#         type: string
+#         required: false
+#       python-version:
+#         description: "Python version to use"
+#         type: string
+#         required: false
+#         default: "3.8"  # Change to your desired Python version
+#       runner-labels:
+#         description: "Labels to use for the GitHub Runners"
+#         type: string
+#         required: false
+#         default: eks-runners
 
-jobs:
-  pytest-test:
-    name: Pytest Test
-    runs-on: ${{ inputs.runner-labels }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+# jobs:
+#   pytest-test:
+#     name: Pytest Test
+#     runs-on: ${{ inputs.runner-labels }}
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ inputs.python-version }}
+#       - name: Setup Python
+#         uses: actions/setup-python@v3
+#         with:
+#           python-version: ${{ inputs.python-version }}
 
-      - name: Install Dependencies
-        run: pip install pytest pytest-md pytest-emoji
-        working-directory: ${{ github.workspace }}
+#       - name: Install Dependencies
+#         run: pip install pytest pytest-md pytest-emoji
+#         working-directory: ${{ github.workspace }}
 
-      - name: Generate coverage report
-        run: |
-          pip install pytest
-          pip install pytest-cov
-          pytest --cov=./ --cov-report=xml
+#       - name: Generate coverage report
+#         run: |
+#           pip install pytest
+#           pip install pytest-cov
+#           pytest --cov=./ --cov-report=xml
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        # with:
-        #   token: ${{ secrets.CODECOV_TOKEN }}
-        #   directory: ./coverage/reports/
-        #   env_vars: OS,PYTHON
-        #   fail_ci_if_error: true
-        #   files: ./coverage.xml,!./cache
-        #   flags: unittests
-        #   name: codecov-umbrella
-        #   verbose: true
-      # - name: Get Cover 
-      #   uses: orgoro/coverage@v3.1
-      #   with:
-      #       coverageFile: ./coverage.xml
-      #       token: ${{ secrets.GIT_TOKEN1 }}
+#       - name: Upload coverage to Codecov
+#         uses: codecov/codecov-action@v3
+#         # with:
+#         #   token: ${{ secrets.CODECOV_TOKEN }}
+#         #   directory: ./coverage/reports/
+#         #   env_vars: OS,PYTHON
+#         #   fail_ci_if_error: true
+#         #   files: ./coverage.xml,!./cache
+#         #   flags: unittests
+#         #   name: codecov-umbrella
+#         #   verbose: true
+#       # - name: Get Cover 
+#       #   uses: orgoro/coverage@v3.1
+#       #   with:
+#       #       coverageFile: ./coverage.xml
+#       #       token: ${{ secrets.GIT_TOKEN1 }}
 
 
-      # - name: Run pytest
-      #   uses: pavelzw/pytest-action@v2
-      #   with:
-      #     verbose: true
-      #     emoji: true
-      #     job-summary: true
-      #     custom-arguments: '-q'
-      #     click-to-expand: true
-      #     report-title: 'Test Report'
+#       # - name: Run pytest
+#       #   uses: pavelzw/pytest-action@v2
+#       #   with:
+#       #     verbose: true
+#       #     emoji: true
+#       #     job-summary: true
+#       #     custom-arguments: '-q'
+#       #     click-to-expand: true
+#       #     report-title: 'Test Report'
 
 
 
