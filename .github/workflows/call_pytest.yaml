@@ -49,10 +49,10 @@ jobs:
     runs-on: ${{ inputs.runner-labels }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ inputs.python-version }}
 
@@ -61,7 +61,7 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       - name: Run pytest
-        uses: pavelzw/pytest-action@v3
+        uses: pavelzw/pytest-action@v2
         with:
           verbose: true
           emoji: true
