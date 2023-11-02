@@ -57,24 +57,18 @@ jobs:
           python-version: ${{ inputs.python-version }}
 
       - name: Install Dependencies
-        run: pip install pytest pytest-cov
+        run: pip install pytest pytest-md
         working-directory: ${{ github.workspace }}
 
-      - name: Run Pytest
-        run: pytest --cov --cov-report xml:pytest-report.xml
-        working-directory: ${{ github.workspace }}
-      
-      - name: Run Pytest Coverage Commentator
-        uses: actions/github-script@v5
+      - name: Run pytest
+        uses: pavelzw/pytest-action@v2
         with:
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              body: await core.group('Run Pytest Coverage Commentator', async () => {
-                // Run  pytest-coverage
-                await core.exec('pytest --cov');
-              })
-            });
+          verbose: true
+          emoji: false
+          job-summary: true
+          custom-arguments: '-q'
+          click-to-expand: true
+          report-title: 'Test Report'
 
 
       # - name: Test Report
