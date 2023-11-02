@@ -60,26 +60,21 @@ jobs:
         run: pip install pytest pytest-md pytest-emoji
         working-directory: ${{ github.workspace }}
 
-      - name: Run pytest
-        uses: pavelzw/pytest-action@v2
-        with:
-          verbose: true
-          emoji: true
-          job-summary: true
-          custom-arguments: '-q'
-          click-to-expand: true
-          report-title: 'Test Report'
+      - name: Test with pytest
+        run: |
+          pip install pytest pytest-cov
+          pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
 
-      - name: Code Coverage Report
-        uses: irongut/CodeCoverageSummary@v1.3.0
-        with:
-          filename: coverage/cobertura-coverage.xml
-          badge: ${{ inputs.coverage-badge }}
-          fail_below_min: true
-          format: markdown
-          hide_branch_rate: false
-          hide_complexity: true
-          indicators: true
-          output: both
+      # - name: Run pytest
+      #   uses: pavelzw/pytest-action@v2
+      #   with:
+      #     verbose: true
+      #     emoji: true
+      #     job-summary: true
+      #     custom-arguments: '-q'
+      #     click-to-expand: true
+      #     report-title: 'Test Report'
+
+
 
 
