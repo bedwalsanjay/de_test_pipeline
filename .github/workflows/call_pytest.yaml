@@ -57,14 +57,14 @@ jobs:
           python-version: ${{ inputs.python-version }}
 
       - name: Install Dependencies
-        run: pip install pytest pytest-md
+        run: pip install pytest pytest-md pytest-emoji
         working-directory: ${{ github.workspace }}
 
       - name: Run pytest
-        uses: pavelzw/pytest-action@v2
+        uses: pavelzw/pytest-action@v3
         with:
           verbose: true
-          emoji: false
+          emoji: true
           job-summary: true
           custom-arguments: '-q'
           click-to-expand: true
