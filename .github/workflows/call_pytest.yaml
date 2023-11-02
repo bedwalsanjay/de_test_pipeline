@@ -57,10 +57,12 @@ jobs:
           python-version: ${{ inputs.python-version }}
 
       - name: Install Dependencies
-        run: pip install pytest
+        run: pip install pytest pytest-cov
+        working-directory: ${{ github.workspace }}
 
       - name: Run Pytest
-        run: pytest
+        run: pytest --cov --cov-report xml:pytest-report.xml
+        working-directory: ${{ github.workspace }}
 
       - name: Test Report
         uses: dorny/test-reporter@v1
