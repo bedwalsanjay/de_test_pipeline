@@ -1,0 +1,83 @@
+name: Pytest Test
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment"
+        type: string
+        required: false
+        default: "development"
+      test-report:
+        description: "Generate test report?"
+        type: boolean
+        required: false
+        default: false
+      coverage-report:
+        description: "Generate coverage report?"
+        type: boolean
+        required: false
+        default: false
+      coverage-thresholds:
+        description: "Coverage thresholds ('min max')"
+        type: string
+        required: false
+        default: "60 80"
+      coverage-badge:
+        description: "Generate a coverage badge"
+        type: boolean
+        required: false
+        default: false
+      package-list:
+        description: "List of packages to be installed"
+        type: string
+        required: false
+      python-version:
+        description: "Python version to use"
+        type: string
+        required: false
+        default: "3.8"  # Change to your desired Python version
+      runner-labels:
+        description: "Labels to use for the GitHub Runners"
+        type: string
+        required: false
+        default: eks-runners
+
+jobs:
+  pytest-test:
+    name: Pytest Test
+    runs-on: ${{ inputs.runner-labels }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install Dependencies
+        run: pip install pytest
+
+      - name: Run Pytest
+        run: pytest
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: inputs.test-report
+        with:
+          name: Pytest Test Results
+          path: pytest-report.xml  # Adjust the path to your pytest test report
+          reporter: jest-junit
+
+      - name: Code Coverage Report
+        uses: codecov/codecov-action@v2
+        if: inputs.coverage-report
+        with:
+          flags: unit
+          fail_ci_if_error: true
+
+      - name: Cache Coverage
+        if: inputs.coverage-report
+        run: cp -r .coverage ~/.
+
