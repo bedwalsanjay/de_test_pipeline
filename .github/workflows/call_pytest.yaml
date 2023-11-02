@@ -65,6 +65,13 @@ jobs:
           pip install pytest pytest-cov
           pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
 
+      - name: Code Coverage Report
+        uses: codecov/codecov-action@v2
+        if: inputs.coverage-report
+        with:
+          file: ./junit/test-results.xml  # Adjust the path to your Cobertura XML report
+          fail_ci_if_error: true
+
       # - name: Run pytest
       #   uses: pavelzw/pytest-action@v2
       #   with:
