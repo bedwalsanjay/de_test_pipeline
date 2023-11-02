@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-# on: workflow_dispatch
 jobs:
   first-job:
     name : run test cases
@@ -11,19 +10,21 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: 3.8 
+        
     - name: Install dependencies
       run: |
         pip install pytest pytest-cov pytest-xdist
       working-directory: ${{ github.workspace }}
-
+      
     - name: Run Pytest and generate Cobertura coverage report
       run: pytest --cov --cov-report xml:coverage.xml
       working-directory: ${{ github.workspace }}
-
+      
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
       env:
