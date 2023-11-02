@@ -60,17 +60,21 @@ jobs:
         run: pip install pytest pytest-md pytest-emoji
         working-directory: ${{ github.workspace }}
 
-      - name: Test with pytest
+      - name: Generate coverage report
         run: |
-          pip install pytest pytest-cov
-          pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
-
-      - name: Code Coverage Report
-        uses: codecov/codecov-action@v2
-        if: inputs.coverage-report
+          pip install pytest
+          pip install pytest-cov
+          pytest --cov=./ --cov-report=xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
         with:
-          file: ./junit/test-results.xml  # Adjust the path to your Cobertura XML report
+          directory: ./coverage/reports/
+          env_vars: OS,PYTHON
           fail_ci_if_error: true
+          files: ./coverage1.xml,./coverage2.xml,!./cache
+          flags: unittests
+          name: codecov-umbrella
+          verbose: true
 
       # - name: Run pytest
       #   uses: pavelzw/pytest-action@v2
