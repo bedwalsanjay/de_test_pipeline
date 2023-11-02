@@ -64,22 +64,32 @@ jobs:
         run: pytest --cov --cov-report xml:pytest-report.xml
         working-directory: ${{ github.workspace }}
 
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: inputs.test-report
+      - name: Run Pytest Coverage Commentator
+        uses: actions/github-script@v5
         with:
-          name: Pytest Test Results
-          path: pytest-report.xml  # Adjust the path to your pytest test report
-          reporter: LCOV
+          script: |
+            github.issues.createComment({
+            issue_number: context.issue.number,
+            body: await core.group('Run Pytest Coverage Commentator', async () => {
+            // Run pytest-coverage
+            await core.exec('pytest --cov')
 
-      - name: Code Coverage Report
-        uses: codecov/codecov-action@v2
-        if: inputs.coverage-report
-        with:
-          flags: unit
-          fail_ci_if_error: true
+      # - name: Test Report
+      #   uses: dorny/test-reporter@v1
+      #   if: inputs.test-report
+      #   with:
+      #     name: Pytest Test Results
+      #     path: pytest-report.xml  # Adjust the path to your pytest test report
+      #     reporter: LCOV
 
-      - name: Cache Coverage
-        if: inputs.coverage-report
-        run: cp -r .coverage ~/.
+      # - name: Code Coverage Report
+      #   uses: codecov/codecov-action@v2
+      #   if: inputs.coverage-report
+      #   with:
+      #     flags: unit
+      #     fail_ci_if_error: true
+
+      # - name: Cache Coverage
+      #   if: inputs.coverage-report
+      #   run: cp -r .coverage ~/.
 
